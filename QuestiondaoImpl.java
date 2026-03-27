@@ -1,9 +1,14 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.*;
 
-// import com.mysql.cj.protocol.Resultset;
 
-public class Questiondao implements Question{
+
+public class QuestiondaoImpl implements Questiondao{
+    Connection con;
+    Scanner sc = new Scanner(System.in);
 public void connect(){
     try{
             Connection con =DriverManager.getConnection(
@@ -22,13 +27,13 @@ public void connect(){
     public void addq(Question q){
         try{
             PreparedStatement ps= con.prepareStatement("insert into question values(?,?,?,?,?,?,?)");
-            ps.setInt(1,q.id);
-            ps.setString(2,q.text);
+            ps.setInt(1,q.qid);
+            ps.setString(2,q.qtext);
             ps.setString(3, q.a);
             ps.setString(4, q.b);
             ps.setString(5, q.c);
             ps.setString(6, q.d);
-            ps.setString(7, q.answer);
+            ps.setString(7, String.valueOf(q.answer));
 
              ps.executeUpdate();
              
@@ -77,7 +82,7 @@ public void connect(){
     public void qspaper(){
         try{
             PreparedStatement ps = con.prepareStatement("select * from question");
-            Resultset rs= ps.executeQuery();
+            ResultSet rs= ps.executeQuery();
             int score =0;
             int total=0;
 
@@ -92,9 +97,9 @@ public void connect(){
                 rs.getString("d"));
 
                 System.out.println("enter ans:");
-                char ans= sc.next();
+                char ans= sc.next().charAt(0);
 
-                char correct= rs.getString("ans");
+                char correct= rs.getString("ans").charAt(0);
 
                 if(Character.toLowerCase(ans)==correct){
                     score++;
