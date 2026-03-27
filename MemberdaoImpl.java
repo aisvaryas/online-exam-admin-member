@@ -1,9 +1,10 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-import Connection;
-import DriverManager;
 
 public class MemberdaoImpl implements Memberdao{
+    Connection con;
     public void connect(){
         try{
             Connection con =DriverManager.getConnection(
@@ -22,8 +23,8 @@ public class MemberdaoImpl implements Memberdao{
     public void reg(Member m){
         try{
             PreparedStatement ps = con.prepareStatement("insert into member values(?,?)");
-            ps.setString(1,name);
-            ps.setString(2,email);
+            ps.setString(1,m.name);
+            ps.setString(2,m.email);
             ps.executeUpdate();
             System.out.println("registered");
 
