@@ -1,4 +1,7 @@
 
+import java.util.*;
+
+
 
 public class Main{
     public static void main(String[] args){
@@ -72,12 +75,12 @@ public class Main{
                     sc.nextLine();
 
                     System.out.print("Enter Name: ");
-                    String name = sc.nextLine();
+                    String name1 = sc.nextLine();
 
                     System.out.print("Enter Email: ");
-                    String email = sc.nextLine();
+                    String email1 = sc.nextLine();
 
-                    Member m = new Member(name, email);
+                    Member m = new Member(name1, email1);
                     md.reg(m);
                     break;
 
